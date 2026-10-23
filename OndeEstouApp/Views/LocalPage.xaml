@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OndeEstouApp.Views.LocalPage"
+             xmlns:vm="clr-namespace:OndeEstouApp.ViewModels"
+             x:DataType="vm:LocalViewModel"
+             Title="Minha Localização"
+             BackgroundColor="{AppThemeBinding Light=#F4F6F9, Dark=#121212}">
+
+    <ScrollView Padding="20">
+        <VerticalStackLayout Spacing="20" MaximumWidthRequest="600" HorizontalOptions="Center">
+
+            <!-- Cabeçalho -->
+            <VerticalStackLayout Spacing="6" HorizontalOptions="Center" Margin="0,10,0,10">
+                <Label Text="📍"
+                       FontSize="48"
+                       HorizontalOptions="Center" />
+                <Label Text="Onde Estou?"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light=#1E293B, Dark=#F8FAFC}"
+                       HorizontalOptions="Center" />
+                <Label Text="Obtenha seu endereço e coordenadas em tempo real"
+                       FontSize="14"
+                       TextColor="#64748B"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+            <!-- Botão de Ação -->
+            <Button Command="{Binding GetLocationCommand}"
+                    Text="Capturar Minha Localização"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    CornerRadius="12"
+                    HeightRequest="52"
+                    BackgroundColor="#2563EB"
+                    TextColor="White">
+                <Button.Shadow>
+                    <Shadow Brush="#2563EB" Offset="0,4" Radius="8" Opacity="0.3" />
+                </Button.Shadow>
+            </Button>
+
+            <!-- Card de Endereço -->
+            <Border StrokeShape="RoundRectangle 16"
+                    StrokeThickness="0"
+                    BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                    Padding="20">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Radius="10" Opacity="0.05" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Endereço Encontrado"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#0F172A, Dark=#E2E8F0}"
+                           Margin="0,0,0,6" />
+
+                    <!-- Rua -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="🛣️ Rua" FontSize="12" TextColor="#64748B" FontAttributes="Bold" />
+                        <Entry Text="{Binding CurrentLocation.Thoroughfare}" IsReadOnly="True" />
+                    </VerticalStackLayout>
+
+                    <!-- Bairro -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="🏘️ Bairro" FontSize="12" TextColor="#64748B" FontAttributes="Bold" />
+                        <Entry Text="{Binding CurrentLocation.SubLocality}" IsReadOnly="True" />
+                    </VerticalStackLayout>
+
+                    <!-- Cidade -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="🏙️ Cidade" FontSize="12" TextColor="#64748B" FontAttributes="Bold" />
+                        <Entry Text="{Binding CurrentLocation.Locality}" IsReadOnly="True" />
+                    </VerticalStackLayout>
+
+                    <!-- Estado e CEP lado a lado -->
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <VerticalStackLayout Grid.Column="0" Spacing="4">
+                            <Label Text="🗺️ Estado" FontSize="12" TextColor="#64748B" FontAttributes="Bold" />
+                            <Entry Text="{Binding CurrentLocation.AdminArea}" IsReadOnly="True" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="4">
+                            <Label Text="📪 CEP" FontSize="12" TextColor="#64748B" FontAttributes="Bold" />
+                            <Entry Text="{Binding CurrentLocation.PostalCode}" IsReadOnly="True" />
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- País -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="🌎 País" FontSize="12" TextColor="#64748B" FontAttributes="Bold" />
+                        <Entry Text="{Binding CurrentLocation.CountryName}" IsReadOnly="True" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Card de Coordenadas GPS -->
+            <Border StrokeShape="RoundRectangle 16"
+                    StrokeThickness="0"
+                    BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                    Padding="20">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,2" Radius="10" Opacity="0.05" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Coordenadas GPS"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#0F172A, Dark=#E2E8F0}"
+                           Margin="0,0,0,6" />
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <VerticalStackLayout Grid.Column="0" Spacing="4">
+                            <Label Text="Latitude" FontSize="12" TextColor="#64748B" FontAttributes="Bold" />
+                            <Entry Text="{Binding CurrentLocation.Latitude}" IsReadOnly="True" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="4">
+                            <Label Text="Longitude" FontSize="12" TextColor="#64748B" FontAttributes="Bold" />
+                            <Entry Text="{Binding CurrentLocation.Longitude}" IsReadOnly="True" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
